@@ -1,0 +1,8 @@
+--Abstraction: Process of hiding complex information
+Encapsulation: Process of protecting internal workings.
+
+--Abstraction: Implemented by using 'abstract' keyword
+Encapsulation: Implemented by using access specifier like private, protected and public.
+
+--Abstraction: It can be accessed using method overriding in derived classes
+Encapsulation: It can be accessed using getter, setter method
