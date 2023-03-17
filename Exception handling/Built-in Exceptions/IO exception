@@ -1,0 +1,25 @@
+import java.io.FileReader;
+import java.io.IOException;
+public class Filereader {
+
+	
+	public static void main(String[] args) {
+		try
+		{
+		String fname = "d://hello.txt";
+		FileReader fr = new FileReader(fname);
+		int j=0;
+		while(fr.read()!=-1)
+		{
+			j++;
+		}
+		System.out.println("The total numbers of characters are: "+j);
+		}
+		catch(IOException e)
+		{
+			System.out.println("Invalid file name");
+		}
+
+	}
+
+}
