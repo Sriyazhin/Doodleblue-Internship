@@ -1,0 +1,23 @@
+public class Memorymg {
+
+	public void sample()
+	{
+		int a=5;
+	}
+	public static void main(String[] args) {
+		int b=7;
+		Memorymg mmg = new Memorymg();
+		mmg.sample();
+
+	}
+
+}
+
+Java memory management system uses Stack memory and Heap memory.
+Stack memory consists of Primitive datatypes and reference variables whereas the Heap memory consists of the objects.
+Stack memory follows Last In First Out algorithm and it provides static memory allocation. 
+Heap memory provides Dynamic memory allocation and it stores the values randomly like a tree form. We can remove any particular objects if not required.
+
+Here in the program, the value for b is assigned directly in main method which will be stored in Stack as it is a local variable. Whereas, the value of a is assigned outside the main method i.e. in class with a method.
+So if we need to use that variable we have to create a reference variable for the class and then we have to call using the method name. 
+This reference variable along with the method will be stored in the Stack memory whereas the object a will be stored in the Heap memory.
