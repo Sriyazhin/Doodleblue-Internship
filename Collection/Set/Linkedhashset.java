@@ -7,6 +7,7 @@
   		names.add("sam");
   		names.add("tom");
   		names.add("pin");
+      names.add("sam");
   		System.out.println(names.size());
   		System.out.println(names);
   		System.out.println(names.contains("tom"));
