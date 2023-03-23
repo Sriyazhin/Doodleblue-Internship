@@ -28,11 +28,11 @@ public class Studentinfo {
 		
 		System.out.println("Students Headcount: "+Student.studentcount);
 		
-		Studentreportcard sr1=new Studentreportcard("Ram","Maths",99);
-		Studentreportcard sr2=new Studentreportcard("Sam","Science",83);
-		Studentreportcard sr3=new Studentreportcard("Tom","English",94);
-		Studentreportcard sr4=new Studentreportcard("Vinu","Social",75);
-		Studentreportcard sr5=new Studentreportcard("Ben","Tamil",85);
+		Studentreportcard sr1=new Studentreportcard("Ram",96,89,79);
+		Studentreportcard sr2=new Studentreportcard("Sam",83,89,67);
+		Studentreportcard sr3=new Studentreportcard("Tom",94,86,95);
+		Studentreportcard sr4=new Studentreportcard("Vinu",75,95,68);
+		Studentreportcard sr5=new Studentreportcard("Ben",85,60,79);
 		
 		Scanner s = new Scanner(System.in);
 		List<Student> ss = Arrays.asList(
@@ -43,11 +43,11 @@ public class Studentinfo {
 				new Student("Ben",16,3034,"Chennai")
 				);
 		List<Studentreportcard> src = Arrays.asList(
-				new Studentreportcard("Ram","Maths",99),
-				new Studentreportcard("Sam","Science",83),
-				new Studentreportcard("Tom","English",94),
-				new Studentreportcard("Vinu","Social",75),
-				new Studentreportcard("Ben","Tamil",85)
+				new Studentreportcard("Ram",96,89,79),
+				new Studentreportcard("Sam",83,89,67),
+				new Studentreportcard("Tom",94,86,95),
+				new Studentreportcard("Vinu",75,95,68),
+				new Studentreportcard("Ben",85,60,79)
 				);
 		List<Newstudents> nst = Arrays.asList(
 				new Newstudents("Varadhan"),
@@ -62,21 +62,13 @@ public class Studentinfo {
 			if((stname.equals(s1.getName()) || stname.equals(s2.getName()) || stname.equals(s3.getName()) || stname.equals(s4.getName()) || stname.equals(s5.getName())) &&  (stname.equals(sr1.getName()) || stname.equals(sr2.getName()) || stname.equals(sr3.getName()) || stname.equals(sr4.getName()) || stname.equals(sr5.getName())))
 			{
 			Stream<Student> stream = ss.stream();
-			
-			stream.filter(e->e.getName().equals(stname)).map(Student::getName).forEach(System.out::print);
-			Stream<Student> streama = ss.stream();
-			streama.filter(e->e.getName().equals(stname)).map(Student::getAge).map(b->" "+b).forEach(System.out::print);
-			Stream<Student> streamb = ss.stream();
-			streamb.filter(e->e.getName().equals(stname)).map(Student::getId).map(b->" "+b).forEach(System.out::print);
-			Stream<Student> streamc = ss.stream();
-			streamc.filter(e->e.getName().equals(stname)).map(Student::getCity).map(b->" "+b).forEach(System.out::print);
+			stream.filter(e->e.getName().equals(stname)).forEach(System.out::print);
 			
 			Stream<Studentreportcard> stream1 = src.stream();
-			stream1.filter(e->e.getName().equals(stname)).map(Studentreportcard::getSubject).map(b->" "+b).forEach(System.out::print);
-			Stream<Studentreportcard> stream2 = src.stream();
-			stream2.filter(e->e.getName().equals(stname)).map(Studentreportcard::getMarks).map(b->" "+b).forEach(System.out::println);
+			stream1.filter(e->e.getName().equals(stname)).forEach(System.out::println);
 			} else {
 				throw new InvalidnameException("Invalid name. No Student found");
+				
 			}
 			
 		 
@@ -84,6 +76,7 @@ public class Studentinfo {
 		
 		catch (InvalidnameException e) {
 			System.out.println(e.getMessage());
+			return;
 		}
 		System.out.println("Would you like to see the Admission details: ");
 		System.out.println("1. Yes");
