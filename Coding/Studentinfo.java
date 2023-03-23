@@ -1,6 +1,9 @@
 package Codetask;
 
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
@@ -10,6 +13,13 @@ import stream.InvalidnameException;
 public class Studentinfo {
 
 	public static void main(String[] args)  {
+		LocalDate ld = LocalDate.now();
+		LocalDate tm = ld.plusDays(1);
+		LocalTime lt = LocalTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/yy/MM");
+		String formattedDate = formatter.format(tm);
+		 
+		 
 		Student s1=new Student("Ram",18,3214,"Chennai");
 		Student s2=new Student("Sam",17,3145,"Cochin");
 		Student s3=new Student("Tom",19,3423,"Bangalore");
@@ -39,6 +49,11 @@ public class Studentinfo {
 				new Studentreportcard("Vinu","Social",75),
 				new Studentreportcard("Ben","Tamil",85)
 				);
+		List<Newstudents> nst = Arrays.asList(
+				new Newstudents("Varadhan"),
+				new Newstudents("Swetha"),
+				new Newstudents("Yazhini")
+				);
 		
 		System.out.println("Enter Student name: ");
 		String stname=s.next();
@@ -48,57 +63,48 @@ public class Studentinfo {
 			{
 			Stream<Student> stream = ss.stream();
 			
-				stream.filter(e->e.getName().equals(stname)).map(Student::getName).forEach(System.out::println);
-			
-			
-			
+			stream.filter(e->e.getName().equals(stname)).map(Student::getName).forEach(System.out::print);
 			Stream<Student> streama = ss.stream();
-			streama.filter(e->e.getName().equals(stname)).map(Student::getAge).forEach(System.out::println);
+			streama.filter(e->e.getName().equals(stname)).map(Student::getAge).map(b->" "+b).forEach(System.out::print);
 			Stream<Student> streamb = ss.stream();
-			streamb.filter(e->e.getName().equals(stname)).map(Student::getId).forEach(System.out::println);
+			streamb.filter(e->e.getName().equals(stname)).map(Student::getId).map(b->" "+b).forEach(System.out::print);
 			Stream<Student> streamc = ss.stream();
-			streamc.filter(e->e.getName().equals(stname)).map(Student::getCity).forEach(System.out::println);
+			streamc.filter(e->e.getName().equals(stname)).map(Student::getCity).map(b->" "+b).forEach(System.out::print);
 			
 			Stream<Studentreportcard> stream1 = src.stream();
-			stream1.filter(e->e.getName().equals(stname)).map(Studentreportcard::getSubject).forEach(System.out::println);
+			stream1.filter(e->e.getName().equals(stname)).map(Studentreportcard::getSubject).map(b->" "+b).forEach(System.out::print);
 			Stream<Studentreportcard> stream2 = src.stream();
-			stream2.filter(e->e.getName().equals(stname)).map(Studentreportcard::getMarks).forEach(System.out::println);
+			stream2.filter(e->e.getName().equals(stname)).map(Studentreportcard::getMarks).map(b->" "+b).forEach(System.out::println);
 			} else {
 				throw new InvalidnameException("Invalid name. No Student found");
 			}
-			s.close();
+			
 		 
 		}
 		
 		catch (InvalidnameException e) {
 			System.out.println(e.getMessage());
 		}
-		
-		
-		
-	}
-
+		System.out.println("Would you like to see the Admission details: ");
+		System.out.println("1. Yes");
+		System.out.println("2. No");
+		int addt = s.nextInt();
+		switch(addt)
+		{
+		case 1:
+			System.out.println();
+			Stream<Newstudents> streamns1 = nst.stream();
+			streamns1.map(Newstudents::getNstudent).map(b->" "+b+" Admission starts on: "+formattedDate+" "+lt).forEach(System.out::println);
+			break;
+		case 2:
+			System.out.println("Thank you");
+			break;
+		default:
+			System.out.println("Invalid input");
+			break;
+		}
+		s.close();
+	
+	
 }
-
-
-OUTPUT
-Scenario 1:
-
-Students Headcount: 5
-Enter Student name: 
-Ram
-Ram
-18
-3214
-Chennai
-Maths
-99
-
-Scenario 2:
-
-Students Headcount: 5
-Enter Student name: 
-Rem
-Invalid name. No Student found
-
-
+}
