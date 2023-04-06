@@ -12,11 +12,16 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bank.bank.security.Securityentity;
+
 @RestController
 public class Bankcontroller {
 	
 	@Autowired
 	private Bankservice bankservice;
+	
+	@Autowired
+	private UserInfoDetailsService userInfoDetailsService;
 	
 	@PostMapping("/addAllBankDet")
 	public List<Bank> addAllBankdet(@RequestBody List<Bank> bank) {
@@ -28,6 +33,10 @@ public class Bankcontroller {
 		return bankservice.saveBankdet(bank);
 	}
 	
+	@PostMapping("/newuser")
+	public String addUser(@RequestBody Securityentity securityentity) {
+		return userInfoDetailsService.addUser(securityentity);
+	}
 	
 	 @GetMapping("/getBankdetails") 
 	 @PreAuthorize("hasAuthority('ROLE_MANAGER1')")
