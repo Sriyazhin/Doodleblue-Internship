@@ -3,6 +3,8 @@ package com.employee.entity;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,26 +21,27 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-//@Table(name="department")
+@Table(name="department")
 
-public class Department {
+public class Depart {
 	@Id
 	@GeneratedValue
-	//@Column(name="deptid")
+	@Column(name="deptid")
 	private int deptid;
-	//@Column(name="deptName")
+	@Column(name="deptName")
 	private String deptName;
-	//@Column(name="deptMail")
+	@Column(name="deptMail")
 	private String deptMail;
 	
 	@OneToMany(mappedBy = "department",cascade = CascadeType.ALL)
-	private List<Employee> employee;
+	
+	private List<Employe> employee;
 	
 	
-	public List<Employee> getEmployee() {
+	public List<Employe> getEmployee() {
 		return employee;
 	}
-	public void setEmployee(List<Employee> employee) {
+	public void setEmployee(List<Employe> employee) {
 		this.employee = employee;
 	}
 	public int getDeptid() {
@@ -60,6 +63,7 @@ public class Department {
 	public void setDeptMail(String deptMail) {
 		this.deptMail = deptMail;
 	}
+	
 	
 	
 	 
