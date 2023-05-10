@@ -6,41 +6,39 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
-//@Table(name="employeeDetails")
-public class EmployeeDetails {
+@Table(name="employeeDetails")
+
+public class EmployeeDet {
 	@Id
-	@Column(name="empid")
-	private int empid;
-	//@Column(name="address")
+	@Column(name="id")
+	private int id;
+	@Column(name="address")
 	private String address;
-	//@Column(name="salary")
+	@Column(name="salary")
 	private double salary;
-	//@Column(name="noOfYears")
+	@Column(name="noOfYears")
 	private int noOfYears;
 	
 	
-	
-	/*
-	 * @OneToOne private Employee employee;
-	 * 
-	 * 
-	 * public Employee getEmployee() { return employee; } public void
-	 * setEmployee(Employee employee) { this.employee = employee; }
-	 */
-	 
-	 
-	public int getEmpid() {
-		return empid;
+	@Override
+	public String toString() {
+		return "EmployeeDet [id=" + id + ", address=" + address + ", salary=" + salary + ", noOfYears=" + noOfYears
+				+ "]";
 	}
-	public void setEmpid(int empid) {
-		this.empid = empid;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getAddress() {
 		return address;
