@@ -9,17 +9,18 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import com.employee.dto.Employeedto;
-import com.employee.entity.Department;
-import com.employee.entity.Employee;
+import com.employee.entity.Depart;
+import com.employee.entity.Employe;
+import com.employee.entity.EmployeeDet;
 
 @Repository
-public interface EmployeeRepo extends JpaRepository<Employee, Integer>{
-
+public interface EmployeeRepo extends JpaRepository<Employe, Integer>{
 	
-	
-	@Query(value ="SELECT e.name,e.mail,ed.address,ed.no_of_years FROM employee e join department d on e.fk_deptid=d.deptid join employee_details ed on e.empid=ed.empid where d.deptid=:id", nativeQuery = true)
-	List<Employee> findBydeptid(@Param("id") int id);
+	@Query(" FROM Employe e join Depart d on e.department=d.deptid join EmployeeDet ed on e.empid=ed.id where d.deptid=:deptid ")
+	List<Employe> findBydeptid(@Param("deptid") int deptid);
 
+	@Query(" FROM Employe e join Depart d on e.department=d.deptid join EmployeeDet ed on e.empid=ed.id where ed.noOfYears>:noOfYears ")
+	List<Employe> findByNoOfYears(@Param("noOfYears") int noOfYears);
 	
 	  
 	 
