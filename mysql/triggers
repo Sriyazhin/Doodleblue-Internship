@@ -1,0 +1,54 @@
+create database banks;
+use banks;
+
+create table accounts(id int auto_increment primary key, name varchar(30), acctype varchar(30), balance int, verfication varchar(5)) ;
+create table deletedlog(name varchar(30), acctype varchar(30), balance int) ;
+create table bankdetails(id int, accotype varchar(30) , totalbalance int);
+create table alert(id int auto_increment, alertid int, alert varchar(300) not null, primary key(id,alertid));
+
+Delimiter //
+create trigger check_verfication 
+before insert on accounts 
+for each row 
+begin 
+if new.verfication = 'no' then insert into alert(alertid,alert) values (new.id,concat('Hello ',new.name, ', you have not verified your account'));
+end if;
+end //
+delimiter ;
+
+create trigger check_balance2 
+after insert on accounts 
+for each row 
+update bankdetails set totalbalance = (select sum(balance) from accounts where acctype ='savings') where accotype='savings';
+
+create trigger update_balance2 
+after update on accounts 
+for each row 
+update bankdetails set totalbalance = totalbalance + (new.balance-old.balance) where accotype='savings';
+
+Delimiter //
+create trigger check_balance 
+after delete on accounts 
+for each row
+begin 
+update bankdetails set totalbalance = totalbalance - old.balance;
+end //
+delimiter ;
+
+Delimiter //
+create trigger log_delete 
+before delete on accounts 
+for each row
+begin 
+insert into deletedlog(name,acctype,balance) values (old.name,old.acctype,old.balance);
+end //
+delimiter ;
+drop trigger check_balance;
+
+insert into accounts values (1,'varadhan', 'savings',15000,'yes'),
+(2,'swetha', 'savings',8000,'yes'), (3,'yazhini', 'current',12000,'no'), (4,'vijay', 'savings',5000,'no'), 
+(5,'adithi', 'current',18000,'yes'), (6,'keerthana', 'savings',12000,'yes');
+insert into accounts values (2,'swetha', 'savings',30000,'yes');
+
+insert into bankdetails values (1,'savings', null),
+(2,'current', null);
