@@ -1,0 +1,26 @@
+IN PROCEDURE
+
+Delimiter // 
+CREATE PROCEDURE `current_acctype` (in  amount int)
+BEGIN
+declare amt int;
+set amt= amount;
+if amt>10000 then update accounts set loan = 'eligible' where balance = amount;
+else update accounts set loan = 'not eligible' where balance = amount;
+end if;
+END//  
+delimiter ;
+
+OUT 
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `tot_acc`(in loan varchar(20),out totacc int)
+BEGIN
+select count(*) into totacc from accounts where accounts.loan=loan;
+END 
+
+INOUT
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `interest`(in principle int, inout intr int)
+BEGIN
+set intr=(intr/100)*principle;
+END
