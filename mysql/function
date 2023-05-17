@@ -1,0 +1,12 @@
+CREATE DEFINER=`root`@`localhost` FUNCTION `Offer`(balance int) RETURNS varchar(50) CHARSET utf8mb4
+    DETERMINISTIC
+BEGIN
+declare offer varchar(50);
+if balance>=15000 then set offer='zero balance account eligible';
+elseif balance>=10000 and balance<15000 then set offer='maintain above 15000 to get offers';
+elseif balance<10000 then set offer='no offers';
+end if;
+RETURN offer;
+END
+
+select name,acctype,balance,Offer(balance) from accounts;
