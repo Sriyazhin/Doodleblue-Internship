@@ -1,4 +1,6 @@
-IN PROCEDURE
+PROCEDURE
+
+IN:
 
 Delimiter // 
 CREATE PROCEDURE `current_acctype` (in  amount int)
@@ -11,16 +13,25 @@ end if;
 END//  
 delimiter ;
 
-OUT 
+call current_acctype(12000);
+
+OUT:
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `tot_acc`(in loan varchar(20),out totacc int)
 BEGIN
 select count(*) into totacc from accounts where accounts.loan=loan;
 END 
 
-INOUT
+CALL `banks`.`tot_acc`('eligible',@output);
+select @output as totalaccounts;
+
+INOUT:
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `interest`(in principle int, inout intr int)
 BEGIN
 set intr=(intr/100)*principle;
 END
+
+set @percent = 5;
+CALL `banks`.`interest`(15000, @percent);
+select @percent as interest;
