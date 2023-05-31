@@ -1,0 +1,17 @@
+1.
+CREATE DEFINER=`root`@`localhost` PROCEDURE `jsonextract`(in names varchar(30), out models json)
+BEGIN
+select json_arrayagg(json_extract(features,'$.model')) into models from phones where name=names; 
+END
+
+2.
+CREATE DEFINER=`root`@`localhost` PROCEDURE `jsoninout`(in names varchar(30),out tot int)
+BEGIN
+Select sum(quantity) into tot from phones where name=names;
+END
+
+3.
+CREATE DEFINER=`root`@`localhost` PROCEDURE `brand`(in brandname varchar(25))
+BEGIN
+select id,model,name from phones where name =brandname;
+END
